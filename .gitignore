@@ -1,1 +1,7 @@
 Java.gitignore
+.gradle/**
+gradle/**
+build/**
+.idea/**
+out/**
+*.iml
