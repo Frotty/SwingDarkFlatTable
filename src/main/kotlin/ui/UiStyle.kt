@@ -2,13 +2,10 @@ package ui
 
 import tablelayout.Table
 import java.awt.Color
-import javax.swing.BorderFactory
-import javax.swing.JComponent
-import javax.swing.JLabel
-import javax.swing.JTextField
+import javax.swing.*
 import javax.swing.border.CompoundBorder
 import javax.swing.border.EmptyBorder
-
+import javax.swing.plaf.basic.BasicProgressBarUI
 
 
 object UiStyle {
@@ -23,6 +20,12 @@ object UiStyle {
                 val pad = EmptyBorder(0, 5, 0, 0)
                 val compoundBorder = CompoundBorder(line, pad)
                 (component as JComponent).border = compoundBorder
+            } else if (component is JProgressBar) {
+                component.border = BorderFactory.createLineBorder(Color(80, 80, 80))
+                component.foreground = Color(101, 108, 142)
+                component.background = Color(36, 36, 36)
+                component.isStringPainted = false
+                component.ui = BasicProgressBarUI()
             } else if (component is Table) {
                 setStyle(component)
             }
