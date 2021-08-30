@@ -25,7 +25,7 @@ object UiStyle {
                 component.foreground = Color(101, 108, 142)
                 component.background = Color(36, 36, 36)
                 component.isStringPainted = false
-                component.ui = BasicProgressBarUI()
+                component.setUI(BasicProgressBarUI())
             } else if (component is Table) {
                 setStyle(component)
             }

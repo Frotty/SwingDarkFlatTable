@@ -1,33 +1,22 @@
-apply plugin: 'java'
+apply plugin: 'java-library'
 apply plugin: 'kotlin'
 apply plugin: 'idea'
-
-sourceSets {
-    main {
-        java {
-            srcDir 'src/main/java'
-        }
-        resources {
-            srcDir 'src/main/resources'
-        }
-    }
-}
+apply plugin: 'maven-publish'
 
 repositories {
-    jcenter()
     mavenCentral()
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile 'io.github.microutils:kotlin-logging:1.4.6'
-    compile 'org.slf4j:slf4j-log4j12:1.7.5'
-    testCompile 'org.testng:testng:6.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'io.github.microutils:kotlin-logging:1.4.6'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.5'
+    testImplementation 'org.testng:testng:6.1.1'
 }
 
 buildscript {
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.5.30'
     repositories {
         flatDir dirs: 'src/main/resources/'
         mavenCentral()
@@ -39,9 +28,6 @@ buildscript {
 
 version '1.0.0.0'
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
-}
 compileKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
@@ -52,8 +38,22 @@ compileTestKotlin {
         jvmTarget = "1.8"
     }
 }
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
 
+task install
+install.dependsOn(publishToMavenLocal)
 
+publishing {
+    publications {
+        myLibrary(MavenPublication) {
+            from components.java
+        }
+    }
+
+}
 
 
 
